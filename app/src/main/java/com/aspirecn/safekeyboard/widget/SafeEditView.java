@@ -1,4 +1,4 @@
-package com.github.phoenix.widget;
+package com.aspirecn.safekeyboard.widget;
 
 
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.github.phoenix.R;
-import com.github.phoenix.container.KeyModel;
-import com.github.phoenix.utils.SystemUtil;
+import com.aspirecn.safekeyboard.R;
+import com.aspirecn.safekeyboard.container.KeyModel;
+import com.aspirecn.safekeyboard.utils.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,13 +27,13 @@ import java.util.Random;
  * @author Phoenix
  * @date 2016-12-7 16:49
  */
-public class EditView extends EditText implements SKeyboardView.OnKeyboardActionListener {
+public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboardActionListener {
     private Context context;
 
     private Keyboard keyboardNumber;
     private Keyboard keyboardEnglish;
     private ViewGroup viewGroup;
-    private SKeyboardView keyboardView;
+    private SafeKeyboardView keyboardView;
 
     //标识数字键盘和英文键盘的切换
     private boolean isShift = true;
@@ -43,15 +43,15 @@ public class EditView extends EditText implements SKeyboardView.OnKeyboardAction
     //点击【完成】、键盘隐藏、键盘显示时的回调
     private OnKeyboardListener onKeyboardListener;
 
-    public EditView(Context context) {
+    public SafeEditView(Context context) {
         this(context, null);
     }
 
-    public EditView(Context context, AttributeSet attrs) {
+    public SafeEditView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public EditView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SafeEditView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initEditView();
@@ -72,7 +72,7 @@ public class EditView extends EditText implements SKeyboardView.OnKeyboardAction
      * @param keyboardView
      * @param isNumber     true:表示默认数字键盘，false：表示默认英文键盘
      */
-    public void setEditView(ViewGroup viewGroup, SKeyboardView keyboardView, boolean isNumber) {
+    public void setEditView(ViewGroup viewGroup, SafeKeyboardView keyboardView, boolean isNumber) {
         this.viewGroup = viewGroup;
         this.keyboardView = keyboardView;
         this.isShift = isNumber;

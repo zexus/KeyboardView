@@ -1,10 +1,10 @@
-package com.github.phoenix.utils;
+package com.aspirecn.safekeyboard.utils;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
-import com.github.phoenix.base.BaseApplication;
+import com.aspirecn.safekeyboard.base.BaseApplication;
 
 
 /**

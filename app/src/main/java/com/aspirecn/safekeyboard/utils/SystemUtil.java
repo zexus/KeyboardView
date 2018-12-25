@@ -1,4 +1,4 @@
-package com.github.phoenix.utils;
+package com.aspirecn.safekeyboard.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

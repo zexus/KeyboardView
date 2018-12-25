@@ -1,4 +1,4 @@
-package com.github.phoenix;
+package com.aspirecn.safekeyboard;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

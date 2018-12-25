@@ -1,15 +1,15 @@
-package com.github.phoenix.activity;
+package com.aspirecn.safekeyboard.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.LinearLayout;
 
-import com.github.phoenix.R;
-import com.github.phoenix.utils.DensityUtil;
-import com.github.phoenix.utils.ScreenUtil;
-import com.github.phoenix.widget.EditView;
-import com.github.phoenix.widget.SKeyboardView;
+import com.aspirecn.safekeyboard.R;
+import com.aspirecn.safekeyboard.utils.DensityUtil;
+import com.aspirecn.safekeyboard.utils.ScreenUtil;
+import com.aspirecn.safekeyboard.widget.SafeEditView;
+import com.aspirecn.safekeyboard.widget.SafeKeyboardView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.keyboard_view)
-    SKeyboardView keyboardView;
+    SafeKeyboardView keyboardView;
     @BindView(R.id.edit_view)
-    EditView editView;
+    SafeEditView safeEditView;
     @BindView(R.id.ll_keyboard)
     LinearLayout llKeyboard;
     @BindView(R.id.ll_guan)
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initEvent() {
-        editView.setOnKeyboardListener(new EditView.OnKeyboardListener() {
+        safeEditView.setOnKeyboardListener(new SafeEditView.OnKeyboardListener() {
             @Override
             public void onHide(boolean isCompleted) {
                 if (height > 0) {
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
                         //pos[0]: X，pos[1]: Y
                         int[] pos = new int[2];
                         //获取编辑框在整个屏幕中的坐标
-                        editView.getLocationOnScreen(pos);
+                        safeEditView.getLocationOnScreen(pos);
                         //编辑框的Bottom坐标和键盘Top坐标的差
-                        height = (pos[1] + editView.getHeight())
+                        height = (pos[1] + safeEditView.getHeight())
                                 - (ScreenUtil.getScreenHeight(MainActivity.this) - keyboardView.getHeight());
                         if (height > 0) {
                             //编辑框和键盘之间预留出16dp的距离
@@ -78,6 +78,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSubView() {
-        editView.setEditView(llKeyboard, keyboardView, true);
+        safeEditView.setEditView(llKeyboard, keyboardView, true);
     }
 }

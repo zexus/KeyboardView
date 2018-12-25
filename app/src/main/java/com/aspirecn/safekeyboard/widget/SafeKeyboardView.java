@@ -1,4 +1,4 @@
-package com.github.phoenix.widget;
+package com.aspirecn.safekeyboard.widget;
 
 
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.util.AttributeSet;
 
-import com.github.phoenix.R;
-import com.github.phoenix.utils.ResUtil;
+import com.aspirecn.safekeyboard.R;
+import com.aspirecn.safekeyboard.utils.ResUtil;
 
 import java.util.List;
 
@@ -22,20 +22,20 @@ import java.util.List;
  * @author Phoenix
  * @date 2016-12-7 17:08
  */
-public class SKeyboardView extends KeyboardView {
+public class SafeKeyboardView extends KeyboardView {
     private Context context;
     private Rect rect;
     private Paint paint;
 
     private int keyboardType = -1;
 
-    public SKeyboardView(Context context, AttributeSet attrs) {
+    public SafeKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
 //        initSKeyboardView();
     }
 
-    public SKeyboardView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SafeKeyboardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
 //        initSKeyboardView();

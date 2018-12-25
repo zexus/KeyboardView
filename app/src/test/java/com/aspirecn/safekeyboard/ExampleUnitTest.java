@@ -1,4 +1,4 @@
-package com.github.phoenix;
+package com.aspirecn.safekeyboard;
 
 import org.junit.Test;
 

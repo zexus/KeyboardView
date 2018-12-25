@@ -1,4 +1,4 @@
-package com.github.phoenix.base;
+package com.aspirecn.safekeyboard.base;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.github.phoenix.container;
+package com.aspirecn.safekeyboard.container;
 
 public class KeyModel {
     private Integer code;
