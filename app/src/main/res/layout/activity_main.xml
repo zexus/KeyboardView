@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -18,13 +18,13 @@
             <TextView
                 android:id="@+id/tv_guan"
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:visibility="visible"/>
+                android:layout_height="100dp"
+                android:visibility="visible" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="500dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <com.github.phoenix.widget.EditView
                 android:id="@+id/edit_view"
@@ -33,9 +33,9 @@
                 android:layout_below="@+id/tv_guan"
                 android:gravity="center"
                 android:hint="身份证号: "
-                android:textSize="@dimen/sp_24"
                 android:textColor="@android:color/black"
-                android:textColorHint="#BABABA"/>
+                android:textColorHint="#BABABA"
+                android:textSize="@dimen/sp_24" />
 
         </LinearLayout>
     </ScrollView>
