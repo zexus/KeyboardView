@@ -57,21 +57,11 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         initEditView();
     }
 
-    /**
-     * 初始化自定义键盘
-     */
     private void initEditView() {
         keyboardNumber = new Keyboard(context, R.xml.keyboard_number);
         keyboardEnglish = new Keyboard(context, R.xml.keyboard_english);
     }
 
-    /**
-     * 设置键盘
-     *
-     * @param viewGroup
-     * @param keyboardView
-     * @param isNumber     true:表示默认数字键盘，false：表示默认英文键盘
-     */
     public void setEditView(ViewGroup viewGroup, SafeKeyboardView keyboardView, boolean isNumber) {
         this.viewGroup = viewGroup;
         this.keyboardView = keyboardView;
@@ -246,12 +236,6 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         }
     }
 
-    /**
-     * 判断此key是否正确，且存在
-     *
-     * @param key
-     * @return
-     */
     private boolean isKey(String key) {
         String lowercase = "abcdefghijklmnopqrstuvwxyz";
         if (lowercase.indexOf(key.toLowerCase()) > -1) {
@@ -299,38 +283,28 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         }
     }
 
-    /**
-     * 键盘状态
-     *
-     * @return true：表示键盘开启 false：表示键盘隐藏
-     */
     public boolean isShow() {
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
     @Override
     public void onText(CharSequence charSequence) {
-
     }
 
     @Override
     public void swipeLeft() {
-
     }
 
     @Override
     public void swipeRight() {
-
     }
 
     @Override
     public void swipeDown() {
-
     }
 
     @Override
     public void swipeUp() {
-
     }
 
     @Override
