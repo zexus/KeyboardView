@@ -206,6 +206,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
             keyboardView.setKeyboard(keyboardEnglish);
             keyboardView.setCurrentKeyboard(1);
         } else {
+            garbleKeyboardNumber();
             keyboardView.setKeyboard(keyboardNumber);
             keyboardView.setCurrentKeyboard(0);
         }
