@@ -95,7 +95,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         List<Keyboard.Key> newkeyList = new ArrayList<Keyboard.Key>();
         for (int i = 0; i < keyList.size(); i++) {
             if (keyList.get(i).label != null
-                    && "0123456789".contains(keyList.get(i).label.toString())) {
+                    && isNumber(keyList.get(i).label.toString())) {
                 newkeyList.add(keyList.get(i));
             }
         }
@@ -258,6 +258,10 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
             return true;
         }
         return false;
+    }
+
+    private boolean isNumber(String num) {
+        return "0123456789".contains(num);
     }
 
     /**
