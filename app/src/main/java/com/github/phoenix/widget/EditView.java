@@ -12,10 +12,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.github.phoenix.R;
+import com.github.phoenix.container.KeyModel;
 import com.github.phoenix.utils.SystemUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 自定义键盘，在输入密码等安全性要求较高的时候使用此编辑框
@@ -74,6 +78,7 @@ public class EditView extends EditText implements SKeyboardView.OnKeyboardAction
         this.isShift = isNumber;
 
         if (isNumber) {
+            garbleKeyboardNumber();
             keyboardView.setKeyboard(keyboardNumber);
             keyboardView.setCurrentKeyboard(0);
         } else {
@@ -83,6 +88,36 @@ public class EditView extends EditText implements SKeyboardView.OnKeyboardAction
         keyboardView.setEnabled(true);
         keyboardView.setPreviewEnabled(!isNumber);
         keyboardView.setOnKeyboardActionListener(this);
+    }
+
+    private void garbleKeyboardNumber() {
+        List<Keyboard.Key> keyList = keyboardNumber.getKeys();
+        List<Keyboard.Key> newkeyList = new ArrayList<Keyboard.Key>();
+        for (int i = 0; i < keyList.size(); i++) {
+            if (keyList.get(i).label != null
+                    && "0123456789".contains(keyList.get(i).label.toString())) {
+                newkeyList.add(keyList.get(i));
+            }
+        }
+
+        List<KeyModel> resultList = new ArrayList<KeyModel>();
+        LinkedList<KeyModel> interList = new LinkedList<KeyModel>();
+        for (int i = 0; i < newkeyList.size(); i++) {
+            interList.add(new KeyModel(48 + i, i + ""));
+        }
+
+        Random random = new Random();
+        for (int i = 0; i < newkeyList.size(); i++) {
+            int num = random.nextInt(newkeyList.size() - i);
+            resultList.add(new KeyModel(interList.get(num).getCode(),
+                    interList.get(num).getLable()));
+            interList.remove(num);
+        }
+
+        for (int i = 0; i < newkeyList.size(); i++) {
+            newkeyList.get(i).label = resultList.get(i).getLable();
+            newkeyList.get(i).codes[0] = resultList.get(i).getCode();
+        }
     }
 
     @Override
