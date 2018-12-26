@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.aspirecn.safekeyboard.R;
-import com.aspirecn.safekeyboard.container.KeyModel;
 import com.aspirecn.safekeyboard.utils.SystemUtil;
 
 import java.util.ArrayList;
@@ -321,6 +320,24 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         void onHide(boolean isCompleted);
         void onShow();
         void onPress(int primaryCode);
+    }
+
+    class KeyModel {
+        private Integer code;
+        private String label;
+
+        public KeyModel(Integer code, String lable) {
+            this.code = code;
+            this.label = lable;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public String getLable() {
+            return label;
+        }
     }
 
     public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
