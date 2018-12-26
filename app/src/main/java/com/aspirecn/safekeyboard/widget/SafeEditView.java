@@ -125,8 +125,13 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         }
 
         for (int i = 0; i < newkeyList.size(); i++) {
-            newkeyList.get(i).label = resultList.get(i).getLable();
-            newkeyList.get(i).codes[0] = resultList.get(i).getCode();
+            if (isCapital) {
+                newkeyList.get(i).label = resultList.get(i).getLable().toUpperCase();
+                newkeyList.get(i).codes[0] = resultList.get(i).getCode() - 32;
+            } else {
+                newkeyList.get(i).label = resultList.get(i).getLable();
+                newkeyList.get(i).codes[0] = resultList.get(i).getCode();
+            }
         }
     }
 
