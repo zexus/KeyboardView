@@ -8,10 +8,10 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.aspirecn.safekeyboard.R;
-import com.aspirecn.safekeyboard.utils.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -133,13 +133,13 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        SystemUtil.closeKeyboard(this);
+        closeKeyboard(this);
     }
 
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        SystemUtil.closeKeyboard(this);
+        closeKeyboard(this);
         keyboardView = null;
         viewGroup = null;
     }
@@ -149,7 +149,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         super.onTouchEvent(event);
         requestFocus();
         requestFocusFromTouch();
-        SystemUtil.closeKeyboard(this);
+        closeKeyboard(this);
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (!isShow()) {
                 show();
@@ -268,6 +268,11 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         if (onKeyboardListener != null) {
             onKeyboardListener.onHide(isCompleted);
         }
+    }
+
+    private void closeKeyboard(EditText editText) {
+        InputMethodManager im = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public void show() {
