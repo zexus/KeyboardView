@@ -1,6 +1,5 @@
 package com.aspirecn.safekeyboard.widget;
 
-
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.text.Editable;
@@ -21,12 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * 自定义键盘，在输入密码等安全性要求较高的时候使用此编辑框
- *
- * @author Phoenix
- * @date 2016-12-7 16:49
- */
 public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboardActionListener {
     private Context context;
 
@@ -35,12 +28,9 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
     private ViewGroup viewGroup;
     private SafeKeyboardView keyboardView;
 
-    //标识数字键盘和英文键盘的切换
-    private boolean isShift = true;
-    //标识英文键盘大小写切换
+    private boolean isShiftMode = true;
     private boolean isCapital = false;
 
-    //点击【完成】、键盘隐藏、键盘显示时的回调
     private OnKeyboardListener onKeyboardListener;
 
     public SafeEditView(Context context) {
@@ -65,7 +55,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
     public void setEditView(ViewGroup viewGroup, SafeKeyboardView keyboardView, boolean isNumber) {
         this.viewGroup = viewGroup;
         this.keyboardView = keyboardView;
-        this.isShift = isNumber;
+        this.isShiftMode = isNumber;
 
         if (isNumber) {
             garbleKeyboardNumber();
@@ -174,7 +164,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         if (onKeyboardListener != null) {
             onKeyboardListener.onPress(primaryCode);
         }
-        if (isShift) {
+        if (isShiftMode) {
             return;
         }
         setPreview(primaryCode);
@@ -183,10 +173,9 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
     @Override
     public void onRelease(int primaryCode) {
         switch (primaryCode) {
-            case Keyboard.KEYCODE_DONE:// 完成-4
+            case Keyboard.KEYCODE_DONE:
                 hide(true);
                 break;
-
             default:
                 break;
         }
@@ -198,19 +187,19 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         int start = getSelectionStart();
 
         switch (primaryCode) {
-            case Keyboard.KEYCODE_MODE_CHANGE:// 英文键盘与数字键盘切换-2
-                shiftKeyboard();
+            case Keyboard.KEYCODE_MODE_CHANGE:
+                shiftKeyboardMode();
                 break;
-            case Keyboard.KEYCODE_DELETE:// 回退-5
+            case Keyboard.KEYCODE_DELETE:
                 if (editable != null && editable.length() > 0 && start > 0) {
                     editable.delete(start - 1, start);
                 }
                 break;
-            case Keyboard.KEYCODE_SHIFT:// 英文大小写切换-1
-                shiftEnglish();
+            case Keyboard.KEYCODE_SHIFT:
+                shiftKeyboardCapital();
                 keyboardView.setKeyboard(keyboardEnglish);
                 break;
-            case Keyboard.KEYCODE_DONE:// 完成-4
+            case Keyboard.KEYCODE_DONE:
                 break;
 
             default:
@@ -219,11 +208,8 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         }
     }
 
-    /**
-     * 切换键盘
-     */
-    private void shiftKeyboard() {
-        if (isShift) {
+    private void shiftKeyboardMode() {
+        if (isShiftMode) {
             garbleKeyboardEnglish();
             keyboardView.setKeyboard(keyboardEnglish);
             keyboardView.setCurrentKeyboard(1);
@@ -232,13 +218,10 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
             keyboardView.setKeyboard(keyboardNumber);
             keyboardView.setCurrentKeyboard(0);
         }
-        isShift = !isShift;
+        isShiftMode = !isShiftMode;
     }
 
-    /**
-     * 英文键盘大小写切换
-     */
-    private void shiftEnglish() {
+    private void shiftKeyboardCapital() {
         List<Keyboard.Key> keyList = keyboardEnglish.getKeys();
         for (Keyboard.Key key : keyList) {
             if (key.label != null && isKey(key.label.toString())) {
@@ -254,11 +237,6 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         isCapital = !isCapital;
     }
 
-    /**
-     * 判断是否需要预览Key
-     *
-     * @param primaryCode keyCode
-     */
     private void setPreview(int primaryCode) {
         List<Integer> list = Arrays.asList(Keyboard.KEYCODE_MODE_CHANGE, Keyboard.KEYCODE_DELETE, Keyboard.KEYCODE_SHIFT, Keyboard.KEYCODE_DONE, 32);
         if (list.contains(primaryCode)) {
@@ -280,11 +258,6 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         return "0123456789".contains(num);
     }
 
-    /**
-     * 设置键盘隐藏
-     *
-     * @param isCompleted true：表示点击了【完成】
-     */
     public void hide(boolean isCompleted) {
         int visibility = keyboardView.getVisibility();
         if (visibility == View.VISIBLE) {
@@ -298,11 +271,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         }
     }
 
-    /**
-     * 设置键盘对话框显示，并且屏幕上移
-     */
     public void show() {
-        //设置键盘显示
         int visibility = keyboardView.getVisibility();
         if (visibility == View.GONE || visibility == View.INVISIBLE) {
             keyboardView.setVisibility(View.VISIBLE);
@@ -349,31 +318,11 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
     }
 
     public interface OnKeyboardListener {
-        /**
-         * 键盘隐藏了
-         *
-         * @param isCompleted true：表示点击了【完成】
-         */
         void onHide(boolean isCompleted);
-
-        /**
-         * 键盘弹出了
-         */
         void onShow();
-
-        /**
-         * 按下
-         *
-         * @param primaryCode
-         */
         void onPress(int primaryCode);
     }
 
-    /**
-     * 对外开放的方法
-     *
-     * @param onKeyboardListener
-     */
     public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {
         this.onKeyboardListener = onKeyboardListener;
     }
