@@ -72,6 +72,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
             keyboardView.setKeyboard(keyboardNumber);
             keyboardView.setCurrentKeyboard(0);
         } else {
+            garbleKeyboardEnglish();
             keyboardView.setKeyboard(keyboardEnglish);
             keyboardView.setCurrentKeyboard(1);
         }
@@ -94,6 +95,36 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         LinkedList<KeyModel> interList = new LinkedList<KeyModel>();
         for (int i = 0; i < newkeyList.size(); i++) {
             interList.add(new KeyModel(48 + i, i + ""));
+        }
+
+        Random random = new Random();
+        for (int i = 0; i < newkeyList.size(); i++) {
+            int num = random.nextInt(newkeyList.size() - i);
+            resultList.add(new KeyModel(interList.get(num).getCode(),
+                    interList.get(num).getLable()));
+            interList.remove(num);
+        }
+
+        for (int i = 0; i < newkeyList.size(); i++) {
+            newkeyList.get(i).label = resultList.get(i).getLable();
+            newkeyList.get(i).codes[0] = resultList.get(i).getCode();
+        }
+    }
+
+    private void garbleKeyboardEnglish() {
+        List<Keyboard.Key> keyList = keyboardEnglish.getKeys();
+        List<Keyboard.Key> newkeyList = new ArrayList<Keyboard.Key>();
+        for (int i = 0; i < keyList.size(); i++) {
+            if (keyList.get(i).label != null
+                    && isKey(keyList.get(i).label.toString())) {
+                newkeyList.add(keyList.get(i));
+            }
+        }
+
+        List<KeyModel> resultList = new ArrayList<KeyModel>();
+        LinkedList<KeyModel> interList = new LinkedList<KeyModel>();
+        for (int i = 0; i < newkeyList.size(); i++) {
+            interList.add(new KeyModel(97 + i, Character.toString((char)(i+97))));
         }
 
         Random random = new Random();
@@ -193,6 +224,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
      */
     private void shiftKeyboard() {
         if (isShift) {
+            garbleKeyboardEnglish();
             keyboardView.setKeyboard(keyboardEnglish);
             keyboardView.setCurrentKeyboard(1);
         } else {
