@@ -166,7 +166,7 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
         if (isShiftMode) {
             return;
         }
-        setPreview(primaryCode);
+        // setPreview(primaryCode);
     }
 
     @Override
