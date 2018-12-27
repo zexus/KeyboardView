@@ -211,6 +211,9 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
                 editable.insert(start, Character.toString((char) primaryCode));
                 break;
         }
+
+        requestFocus();
+        requestFocusFromTouch();
     }
 
     private void shiftKeyboardMode() {
