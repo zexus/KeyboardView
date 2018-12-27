@@ -3,6 +3,7 @@ package com.aspirecn.safekeyboard.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.aspirecn.safekeyboard.R;
@@ -79,5 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSubView() {
         safeEditView.setEditView(llKeyboard, keyboardView, true);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
     }
 }
