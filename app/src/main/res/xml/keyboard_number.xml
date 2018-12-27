@@ -52,7 +52,7 @@
             android:codes="57"
             android:keyLabel="9" />
         <Key
-            android:codes="-5"
+            android:codes="-9"
             android:keyEdgeFlags="right"
             android:keyHeight="14%p"
             android:keyLabel="清空" />

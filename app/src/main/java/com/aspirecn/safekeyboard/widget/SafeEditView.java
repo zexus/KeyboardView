@@ -21,12 +21,11 @@ import java.util.Random;
 
 public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboardActionListener {
     private Context context;
-
     private Keyboard keyboardNumber;
     private Keyboard keyboardEnglish;
     private ViewGroup viewGroup;
     private SafeKeyboardView keyboardView;
-
+    private final int KEYCODE_CLEAR = -9;
     private boolean isShiftMode = true;
     private boolean isCapital = false;
 
@@ -205,7 +204,9 @@ public class SafeEditView extends EditText implements SafeKeyboardView.OnKeyboar
                 break;
             case Keyboard.KEYCODE_DONE:
                 break;
-
+            case KEYCODE_CLEAR:
+                editable.clear();
+                break;
             default:
                 editable.insert(start, Character.toString((char) primaryCode));
                 break;
