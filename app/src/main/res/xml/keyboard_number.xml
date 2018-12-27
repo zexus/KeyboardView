@@ -69,8 +69,8 @@
             android:codes="48"
             android:keyLabel="0" />
         <Key
-            android:codes="44"
-            android:keyLabel="," />
+            android:codes="64"
+            android:keyLabel="\@" />
     </Row>
 
 </Keyboard> 
