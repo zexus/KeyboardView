@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Looper;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
@@ -22,10 +23,12 @@ public class AntiHijack {
         boolean isSafe = checkActivity(context);
         boolean isHome = isHome(context);
         boolean isReflectScreen = isReflectScreen(context);
-        if (!isSafe && isHome && isReflectScreen) {
+        if (!isSafe && !isHome && !isReflectScreen) {
             Looper.prepare();
-            Toast.makeText(context, "警告！应用或已被劫持，请谨慎输入",
-                    Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(context, "警告！应用或已被劫持，请谨慎输入",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
             Looper.loop();
         }
     }
