@@ -1,4 +1,4 @@
-package com.aspirecn.safeguard.widget;
+package com.aspirecn.safeguard;
 
 import android.content.Context;
 import android.graphics.Canvas;
