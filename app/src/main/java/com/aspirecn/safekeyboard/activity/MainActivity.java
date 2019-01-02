@@ -1,8 +1,12 @@
 package com.aspirecn.safekeyboard.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.aspirecn.safeguard.AntiHijack;
@@ -10,8 +14,6 @@ import com.aspirecn.safeguard.AntiScreenRecord;
 import com.aspirecn.safeguard.SafeEditText;
 import com.aspirecn.safeguard.SafeKeyboardView;
 import com.aspirecn.safekeyboard.R;
-import com.aspirecn.safekeyboard.utils.DensityUtil;
-import com.aspirecn.safekeyboard.utils.ScreenUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onHide(boolean isCompleted) {
                 if (height > 0) {
-                    llGuan.scrollBy(0, -(height + DensityUtil.dp2px(MainActivity.this, 16)));
+                    int displayHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getApplicationContext().getResources().getDisplayMetrics());
+                    llGuan.scrollBy(0, -(height + displayHeight));
                 }
 
                 if (isCompleted) {
@@ -76,11 +79,15 @@ public class MainActivity extends AppCompatActivity {
                         //获取编辑框在整个屏幕中的坐标
                         safeEditText.getLocationOnScreen(pos);
                         //编辑框的Bottom坐标和键盘Top坐标的差
+                        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                        wm.getDefaultDisplay().getMetrics(displayMetrics);
                         height = (pos[1] + safeEditText.getHeight())
-                                - (ScreenUtil.getScreenHeight(MainActivity.this) - keyboardView.getHeight());
+                                - (displayMetrics.heightPixels - keyboardView.getHeight());
                         if (height > 0) {
                             //编辑框和键盘之间预留出16dp的距离
-                            llGuan.scrollBy(0, height + DensityUtil.dp2px(MainActivity.this, 16));
+                            int displayHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getApplicationContext().getResources().getDisplayMetrics());
+                            llGuan.scrollBy(0, height + displayHeight);
                         }
                     }
                 });
