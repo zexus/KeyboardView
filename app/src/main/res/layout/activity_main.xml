@@ -26,8 +26,8 @@
                 android:layout_height="500dp"
                 android:visibility="gone" />
 
-            <com.aspirecn.safekeyboard.widget.SafeEditView
-                android:id="@+id/edit_view"
+            <com.aspirecn.safeguard.SafeEditText
+                android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_below="@+id/tv_guan"
@@ -36,7 +36,6 @@
                 android:textColor="@android:color/black"
                 android:textColorHint="#BABABA"
                 android:textSize="@dimen/sp_24" />
-
         </LinearLayout>
     </ScrollView>
 

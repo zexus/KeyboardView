@@ -7,23 +7,26 @@ import android.widget.LinearLayout;
 
 import com.aspirecn.safeguard.AntiHijack;
 import com.aspirecn.safeguard.AntiScreenRecord;
+import com.aspirecn.safeguard.SafeEditText;
+import com.aspirecn.safeguard.SafeKeyboardView;
 import com.aspirecn.safekeyboard.R;
 import com.aspirecn.safekeyboard.utils.DensityUtil;
 import com.aspirecn.safekeyboard.utils.ScreenUtil;
-import com.aspirecn.safekeyboard.widget.SafeEditView;
-import com.aspirecn.safekeyboard.widget.SafeKeyboardView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.keyboard_view)
+    @BindView(R.id.safe_keyboard_view)
     SafeKeyboardView keyboardView;
-    @BindView(R.id.edit_view)
-    SafeEditView safeEditView;
+
+    @BindView(R.id.edit_text)
+    SafeEditText safeEditText;
+
     @BindView(R.id.ll_keyboard)
     LinearLayout llKeyboard;
+
     @BindView(R.id.ll_guan)
     LinearLayout llGuan;
 
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initEvent() {
-        safeEditView.setOnKeyboardListener(new SafeEditView.OnKeyboardListener() {
+        safeEditText.setOnKeyboardListener(new SafeEditText.OnKeyboardListener() {
             @Override
             public void onHide(boolean isCompleted) {
                 if (height > 0) {
@@ -71,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
                         //pos[0]: X，pos[1]: Y
                         int[] pos = new int[2];
                         //获取编辑框在整个屏幕中的坐标
-                        safeEditView.getLocationOnScreen(pos);
+                        safeEditText.getLocationOnScreen(pos);
                         //编辑框的Bottom坐标和键盘Top坐标的差
-                        height = (pos[1] + safeEditView.getHeight())
+                        height = (pos[1] + safeEditText.getHeight())
                                 - (ScreenUtil.getScreenHeight(MainActivity.this) - keyboardView.getHeight());
                         if (height > 0) {
                             //编辑框和键盘之间预留出16dp的距离
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSubView() {
-        safeEditView.setEditView(llKeyboard, keyboardView, true);
+        safeEditText.setEditView(llKeyboard, keyboardView, true);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
 //                WindowManager.LayoutParams.FLAG_SECURE);
         AntiScreenRecord.disable(getWindow());
