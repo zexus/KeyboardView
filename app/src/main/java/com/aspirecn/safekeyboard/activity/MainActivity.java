@@ -1,15 +1,13 @@
 package com.aspirecn.safekeyboard.activity;
 
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.aspirecn.safeguard.AntiHijack;
+import com.aspirecn.safeguard.AntiScreenRecord;
 import com.aspirecn.safekeyboard.R;
-import com.aspirecn.safekeyboard.utils.AntiVirusUtil;
 import com.aspirecn.safekeyboard.utils.DensityUtil;
 import com.aspirecn.safekeyboard.utils.ScreenUtil;
 import com.aspirecn.safekeyboard.widget.SafeEditView;
@@ -37,15 +35,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean safe = AntiVirusUtil.checkActivity(getApplicationContext());
-                boolean isHome = AntiVirusUtil.isHome(getApplicationContext());
-                boolean isReflectScreen = AntiVirusUtil.isReflectScreen(getApplicationContext());
-                if (!safe && !isHome && !isReflectScreen) {
-                    Looper.prepare();
-                    Toast.makeText(getApplicationContext(), "警告！应用或已被劫持，请谨慎输入",
-                            Toast.LENGTH_LONG).show();
-                    Looper.loop();
-                }
+                AntiHijack.checkHijack(getApplicationContext());
             }
         }).start();
     }
@@ -102,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSubView() {
         safeEditView.setEditView(llKeyboard, keyboardView, true);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+//                WindowManager.LayoutParams.FLAG_SECURE);
+        AntiScreenRecord.disable(getWindow());
     }
 }

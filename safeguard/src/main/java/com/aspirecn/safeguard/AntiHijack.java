@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Looper;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -14,9 +16,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class AntiHijack {
-    public static final String TAG = "AntiVirusUtil";
+    private static final String TAG = "AntiVirusUtil";
 
-    public static boolean checkActivity(Context context) {
+    public static void checkHijack(Context context) {
+        boolean isSafe = checkActivity(context);
+        boolean isHome = isHome(context);
+        boolean isReflectScreen = isReflectScreen(context);
+        if (!isSafe && isHome && isReflectScreen) {
+            Looper.prepare();
+            Toast.makeText(context, "警告！应用或已被劫持，请谨慎输入",
+                    Toast.LENGTH_LONG).show();
+            Looper.loop();
+        }
+    }
+
+    private static boolean checkActivity(Context context) {
         PackageManager pm = context.getPackageManager();
         List<ApplicationInfo> listAppcations =
                 pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
@@ -95,7 +109,7 @@ public class AntiHijack {
         return pkgName;
     }
 
-    public static boolean isHome(Context context) {
+    private static boolean isHome(Context context) {
         ActivityManager mActivityManager =
                 (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> rti = mActivityManager.getRunningTasks(1);
@@ -115,7 +129,7 @@ public class AntiHijack {
         return names;
     }
 
-    public static boolean isReflectScreen(Context context) {
+    private static boolean isReflectScreen(Context context) {
         KeyguardManager mKeyguardManager =
                 (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         return mKeyguardManager.inKeyguardRestrictedInputMode();
