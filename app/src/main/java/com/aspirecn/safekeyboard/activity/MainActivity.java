@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSubView() {
         safeEditText.setEditView(llKeyboard, keyboardView, true);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-//                WindowManager.LayoutParams.FLAG_SECURE);
-        AntiScreenRecord.disable(getWindow());
+        AntiScreenRecord.enable(getWindow());
     }
 }
