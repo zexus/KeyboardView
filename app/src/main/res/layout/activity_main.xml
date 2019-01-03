@@ -10,15 +10,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.aspirecn.safeguard.SafeEditText
-            android:id="@+id/edit_text"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:hint="身份证号: "
-            android:textColor="@android:color/black"
-            android:textColorHint="#BABABA"
-            android:textSize="@dimen/sp_24" />
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.aspirecn.safeguard.SafeEditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password(optional)"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -45,5 +60,4 @@
             android:shadowRadius="0.0"
             android:visibility="gone"/>
     </LinearLayout>
-
 </RelativeLayout>
