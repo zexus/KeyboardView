@@ -4,51 +4,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <LinearLayout
+        android:id="@+id/linearLayout_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_guan"
+        <com.aspirecn.safeguard.SafeEditText
+            android:id="@+id/edit_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_guan"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:visibility="visible" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="500dp"
-                android:visibility="gone" />
-
-            <com.aspirecn.safeguard.SafeEditText
-                android:id="@+id/edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_below="@+id/tv_guan"
-                android:gravity="center"
-                android:hint="身份证号: "
-                android:textColor="@android:color/black"
-                android:textColorHint="#BABABA"
-                android:textSize="@dimen/sp_24" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:hint="身份证号: "
+            android:textColor="@android:color/black"
+            android:textColorHint="#BABABA"
+            android:textSize="@dimen/sp_24" />
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_keyboard"
+        android:id="@+id/linearLayout_keyboard_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/default_keyboard_bg"
         android:visibility="gone">
 
-        <include layout="@layout/content_keyboard"></include>
-
+        <com.aspirecn.safeguard.SafeKeyboardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/safe_keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/background_dark"
+            android:keyPreviewHeight="@dimen/default_keyPreviewHeight"
+            android:keyPreviewLayout="@layout/view_keyboard_preview"
+            android:keyTextColor="@android:color/white"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_8"
+            android:shadowColor="@color/default_keyShadowColor"
+            android:shadowRadius="0.0"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </RelativeLayout>

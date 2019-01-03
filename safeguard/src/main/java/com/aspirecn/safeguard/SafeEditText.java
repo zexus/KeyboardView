@@ -48,7 +48,7 @@ public class SafeEditText extends EditText implements SafeKeyboardView.OnKeyboar
         keyboardEnglish = new Keyboard(context, R.xml.keyboard_english);
     }
 
-    public void setEditView(ViewGroup viewGroup, SafeKeyboardView keyboardView, boolean isNumber) {
+    public void setEditKeyboardView(ViewGroup viewGroup, SafeKeyboardView keyboardView, boolean isNumber) {
         this.viewGroup = viewGroup;
         this.keyboardView = keyboardView;
         this.isShiftMode = isNumber;

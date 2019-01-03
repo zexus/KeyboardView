@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.edit_text)
     SafeEditText safeEditText;
 
-    @BindView(R.id.ll_keyboard)
-    LinearLayout llKeyboard;
+    @BindView(R.id.linearLayout_keyboard_view)
+    LinearLayout linearLayout_keyboard_view;
 
-    @BindView(R.id.ll_guan)
-    LinearLayout llGuan;
+    @BindView(R.id.linearLayout_edit_text)
+    LinearLayout linearLayout_edit_text;
 
     private int height = 0;
 
@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setSubView();
+        safeEditText.setEditKeyboardView(linearLayout_keyboard_view, keyboardView, true);
+        AntiScreenRecord.enable(getWindow());
         initEvent();
     }
 
@@ -61,17 +62,13 @@ public class MainActivity extends AppCompatActivity {
             public void onHide(boolean isCompleted) {
                 if (height > 0) {
                     int displayHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getApplicationContext().getResources().getDisplayMetrics());
-                    llGuan.scrollBy(0, -(height + displayHeight));
-                }
-
-                if (isCompleted) {
-                    Log.i("", "你点击了完成按钮");
+                    linearLayout_edit_text.scrollBy(0, -(height + displayHeight));
                 }
             }
 
             @Override
             public void onShow() {
-                llGuan.post(new Runnable() {
+                linearLayout_edit_text.post(new Runnable() {
                     @Override
                     public void run() {
                         //pos[0]: X，pos[1]: Y
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         if (height > 0) {
                             //编辑框和键盘之间预留出16dp的距离
                             int displayHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getApplicationContext().getResources().getDisplayMetrics());
-                            llGuan.scrollBy(0, height + displayHeight);
+                            linearLayout_edit_text.scrollBy(0, height + displayHeight);
                         }
                     }
                 });
@@ -98,10 +95,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void setSubView() {
-        safeEditText.setEditView(llKeyboard, keyboardView, true);
-        AntiScreenRecord.enable(getWindow());
     }
 }
