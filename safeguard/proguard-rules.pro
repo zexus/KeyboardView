@@ -23,3 +23,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.aspirecn.safeguard.AntiHijack {
+    public <methods>;
+}
+
+-keep class com.aspirecn.safeguard.SafeEditText {
+    public <methods>;
+}
+
+-keep class com.aspirecn.safeguard.AntiScreenRecord {
+    public <methods>;
+}
+
+-keep class com.aspirecn.safeguard.SafeKeyboardView {
+    public <methods>;
+}
